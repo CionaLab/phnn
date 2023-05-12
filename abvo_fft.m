@@ -44,11 +44,20 @@ for i= 1:height(files)
         n = 2^nextpow2(L);
         Y = fft(X, n);
 
+        [Xc, lags] = xcorr(X, 80, "coef");
+        Yc = fft(Xc, n);
+
         P2 = abs(Y / L);
         P1 = P2(1:n / 2 + 1);
         P1(2:end - 1) = 2 * P1(2:end - 1);
 
-        P_rel = P1(1:n / 2) / max(P1(1:n / 2));
+        P_rel = pow2db((P1(1: n / 2)));
+
+        P2c = abs(Yc / L);
+        P1c = P2c(1:n / 2 + 1);
+        P1c(2:end - 1) = 2 * P1c(2:end - 1);
+
+        Pc_rel = pow2db((P1c(1: n / 2)));
 
         f = 0:(Fs / n):(Fs / 2 - Fs / n);
         t = 1 ./ f;
@@ -57,22 +66,44 @@ for i= 1:height(files)
         tab = sortrows(tab, "amplitude", 'descend');
         writetable(tab, 'fourier_larva_' + larva + '.csv');
 
-        subplot(1, 2, 1)
+        subplot(2, 2, 1)
         plot(a_sub(:, 1), X)
         xlabel("t/s")
         ylabel("\Delta{}F/F_0")
         set(gca, 'xlim', [0 80])
-        %title("aBVO GCaMP recording")
-        subplot(1, 2, 2)
-        plot(f, P_rel)
-        %stem(f, P1(1:n / 2))
-        xlabel("Hz")
-        ylabel("Relative Amplitude")
-        set(gca, 'xlim', [0 5])
-        %title("Fourier transform of aBVO GCaMP recording")
+        title("s(t)")
 
-        %highpass(X, 0.1, Fs)
-        set(gcf, 'position', [0, 0, 1024, 256])
+        subplot(2, 2, 2)
+        plot(f, P_rel)
+        xlabel("Hz")
+        ylabel("dB")
+        set(gca, 'xlim', [0 5])
+        set(gca, 'ylim', [-65 0])
+        title("fft(s)")
+
+        subplot(2, 2, 3)
+        vcrit = sqrt(2) * erfinv(0.95);
+        lconf = -vcrit / sqrt(L);
+        upconf = vcrit / sqrt(L);
+        stem(lags, Xc, 'filled')
+        hold on
+        plot(lags, [lconf; upconf] * ones(size(lags)), 'r')
+        hold off
+        xlabel("Lag")
+        ylabel("Correlation")
+        set(gca, 'xlim', [0 80])
+        set(gca, 'ylim', [-0.5 1.05])
+        title("ACF(s)")
+
+        subplot(2, 2, 4)
+        plot(f, Pc_rel)
+        xlabel("Hz")
+        ylabel("dB")
+        title("fft(ACF(s))")
+        set(gca, 'xlim', [0 5])
+        set(gca, 'ylim', [-65 0])
+
+        set(gcf, 'position', [0, 0, 512 * 2, 256 * 2])
 
         saveas(gcf, 'fourier_larva_' + larva + '.png')
     end
