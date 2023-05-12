@@ -28,4 +28,7 @@ MATLAB analysis is performed on MATLAB 2022b.
 * Tao Laurent
 * Benjamin Gallean
 * Emmanuel Faure
-* William C Smith1
+* William C Smith
+
+## License
+* [GNU Public License](http://www.gnu.org/licenses/GPL-3.0.html)
