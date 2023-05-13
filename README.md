@@ -31,4 +31,5 @@ MATLAB analysis is performed on MATLAB 2022b.
 * William C Smith
 
 ## License
-* [GNU Public License](http://www.gnu.org/licenses/GPL-3.0.html)
+
+* [GNU Public License v3.0](http://www.gnu.org/licenses/gpl-3.0.html)
