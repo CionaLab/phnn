@@ -1,0 +1,72 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: phnn
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Janeva
+    family-names: Chung
+    affiliation: >-
+      Department of Molecular, Cellular and Developmental
+      Biology, University of California, Santa Barbara
+  - given-names: Erin
+    family-names: Newman-Smith
+    affiliation: 'University of California, Santa Barbara, Santa Barbara'
+    orcid: 'https://orcid.org/0000-0003-2752-7227'
+  - given-names: Matthew J.
+    family-names: Kourakis
+    affiliation: 'University of California, Santa Barbara, Santa Barbara'
+    orcid: 'https://orcid.org/0000-0002-1261-3811'
+  - given-names: Yishen
+    family-names: Miao
+    affiliation: >-
+      Department of Molecular, Cellular and Developmental
+      Biology, University of California, Santa Barbara
+    orcid: 'https://orcid.org/0000-0001-7868-7402'
+  - given-names: Cezar
+    family-names: Borba
+    affiliation: >-
+      Department of Molecular, Cellular and Developmental
+      Biology, University of California, Santa Barbara
+  - given-names: Juan
+    family-names: Medina
+    affiliation: >-
+      College of Creative Studies, University of California
+      Santa Barbara
+  - given-names: Tao
+    family-names: Laurent
+    affiliation: >-
+      Laboratoire d'Informatique, de Robotique et de
+      Microélectronique de Montpellier, Université
+      Montpellier, CNRS
+  - given-names: Benjamin
+    family-names: Gallean
+    affiliation: >-
+      Centre de Recherche de Biologie cellulaire de
+      Montpellier, Université Montpellier, CNRS,
+      Montpellier, France
+  - given-names: Emmanuel
+    family-names: Faure
+    affiliation: >-
+      Laboratoire d'Informatique, de Robotique et de
+      Microélectronique de Montpellier, Université
+      Montpellier, CNRS
+  - given-names: William C.
+    family-names: Smith
+    affiliation: >-
+      Department of Molecular, Cellular and Developmental
+      Biology, University of California, Santa Barbara
+    orcid: 'https://orcid.org/0000-0002-6257-7695'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.7931419
+    description: Zenodo
+  - type: doi
+    value: 10.1101/2023.04.24.538092
+    description: BioRxiv
+repository-code: 'https://github.com/CionaLab/phnn'
+license: GPL-3.0-only
