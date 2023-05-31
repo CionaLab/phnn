@@ -47,24 +47,18 @@ for i= 1:height(files)
         [Xc, lags] = xcorr(X, 80, "coef");
         Yc = fft(Xc, n);
 
-        P2 = abs(Y / L);
-        P1 = P2(1:n / 2 + 1);
-        P1(2:end - 1) = 2 * P1(2:end - 1);
+        P_rel = calculateP_rel(Y, L, n);
 
-        P_rel = pow2db((P1(1: n / 2)));
-
-        P2c = abs(Yc / L);
-        P1c = P2c(1:n / 2 + 1);
-        P1c(2:end - 1) = 2 * P1c(2:end - 1);
-
-        Pc_rel = pow2db((P1c(1: n / 2)));
+        Pc_rel = calculateP_rel(Yc, L, n);
 
         f = 0:(Fs / n):(Fs / 2 - Fs / n);
         t = 1 ./ f;
 
-        tab = table(f', t', P_rel, 'VariableNames', ["frequency", "period", "amplitude"]);
+        tab = table(f', t', Pc_rel, 'VariableNames', ["frequency", "period", "amplitude"]);
         tab = sortrows(tab, "amplitude", 'descend');
         writetable(tab, 'fourier_larva_' + larva + '.csv');
+
+        fig = figure();
 
         subplot(2, 2, 1)
         plot(a_sub(:, 1), X)
@@ -78,7 +72,7 @@ for i= 1:height(files)
         xlabel("Hz")
         ylabel("dB")
         set(gca, 'xlim', [0 5])
-        set(gca, 'ylim', [-65 0])
+        set(gca, 'ylim', [-40 0])
         title("fft(s)")
 
         subplot(2, 2, 3)
@@ -90,33 +84,31 @@ for i= 1:height(files)
         plot(lags, [lconf; upconf] * ones(size(lags)), 'r')
         hold off
         xlabel("Lag")
-        ylabel("Correlation")
+        ylabel("ACF")
         set(gca, 'xlim', [0 80])
         set(gca, 'ylim', [-0.5 1.05])
-        title("ACF(s)")
+        title("\rho{}(s)")
 
         subplot(2, 2, 4)
         plot(f, Pc_rel)
         xlabel("Hz")
         ylabel("dB")
-        title("fft(ACF(s))")
+        title("fft(\rho{})")
         set(gca, 'xlim', [0 5])
-        set(gca, 'ylim', [-65 0])
+        set(gca, 'ylim', [-40 0])
 
-        set(gcf, 'position', [0, 0, 512 * 2, 256 * 2])
+        %highpass(X, 0.1, Fs)
+        set(fig, 'position', [0, 0, 400, 300])
 
-        saveas(gcf, 'fourier_larva_' + larva + '.png')
+        exportgraphics(fig, 'fourier_larva_' + larva + '.png', 'Resolution', 300)
     end
 end
 
-%subplot(2, 1, 1)
-%plot(a_sub(:, 1), a_sub(:, 3))
-%xlabel("t/s")
-%ylabel("\Delta{}F/F_0")
-%title("aaIN GCaMP recording")
-%subplot(2, 1, 2)
-%plot(f, abs(Y))
-%xlim([0 0.5])
-%xlabel("Hz")
-%ylabel("Propotion")
-%title("Fourier transform of aBVO GCaMP recording")
+%%
+function P_rel = calculateP_rel(Y, L, n)
+    P2 = abs(Y / L);
+    P1 = P2(1:n / 2 + 1);
+    P1(2:end - 1) = 2 * P1(2:end - 1);
+
+    P_rel = pow2db(P1(1:n / 2));
+end

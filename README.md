@@ -15,7 +15,7 @@ R analysis is performed on R 4.2.3 with the following packages:
 * [ggpmisc 0.5.2](https://cran.r-project.org/web/packages/ggpmisc/index.html)
 * [rstatix 0.7.2](https://cran.r-project.org/web/packages/rstatix/index.html).
 
-MATLAB analysis is performed on MATLAB 2022b.
+MATLAB analysis is performed on MATLAB 2023a.
 
 ## Authors
 
