@@ -1,4 +1,4 @@
-# An oscillating proto-hypothalamic neuron imparts noise to rhythmic taxis behavior in the primitive chordate Ciona
+# A single oscillating proto-hypothalamic neuron imparts noise to rhythmic taxis behavior in the primitive chordate Ciona
 
 [![DOI](https://zenodo.org/badge/625013024.svg)](https://zenodo.org/badge/latestdoi/625013024)
 
