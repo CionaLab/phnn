@@ -39,7 +39,7 @@ df_res <- f_over_f0 %>%
   group_map(
     ~ mutate(
       .x,
-      resid = augment(lm(f_over_f0 ~ time, data = .x)) %>% pull(.resid)
+      resid = augment(lm(FOverF0 ~ time, data = .x)) %>% pull(.resid)
     ),
     .keep = TRUE
   ) %>%
