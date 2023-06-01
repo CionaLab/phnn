@@ -44,7 +44,8 @@ df_res <- f_over_f0 %>%
     ),
     .keep = TRUE
   ) %>%
-  bind_rows()
+  bind_rows() %>%
+  group_by(ROI)
 
 ggplot(df_res, aes(x = time, y = resid, group = ROI, color = ROI)) +
   geom_line() +
@@ -92,28 +93,14 @@ ggplot(df_res, aes(x = time, y = resid, color = ROI)) +
 
 map2(
   df_res %>%
-    group_by(ROI) %>%
     group_keys() %>%
     pull(ROI),
   df_res %>%
-    group_by(ROI) %>%
     group_map(
       ~ ggplot_build(
         ggplot(.x, aes(x = time, y = resid)) +
           geom_line() +
-          stat_peaks(
-            colour = "red",
-            span = span,
-            ignore_threshold = ignore_threshold
-          ) +
-          stat_peaks(
-            geom = "text",
-            colour = "red",
-            span = 15,
-            ignore_threshold = 0.2,
-            hjust = -0.5,
-            angle = 90
-          )
+          stat_peaks(span = span, ignore_threshold = ignore_threshold)
       )$data[[2]]$xintercept
     ),
   ~ tibble(ROI = .x, Interval = diff(.y), Frequency = 1 / Interval)
