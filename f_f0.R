@@ -1,6 +1,7 @@
 # script for finding deltaF/F from Fiji output of fluorescence values
 library(tidyverse)
 library(broom)
+library(ggpmisc)
 
 # Put exposure time in sec here
 t_exposure <- 0.107
@@ -66,3 +67,57 @@ ggplot(df_res, aes(x = time, y = resid, group = ROI, color = ROI)) +
     axis.title = element_text(size = 20, face = "bold")
   ) +
   facet_wrap(~ROI, ncol = 1)
+
+# Gives peak values in graph. Change span and ignore_threshold to get all peaks
+# labelled
+
+span <- 15
+ignore_threshold <- 0.2
+
+ggplot(df_res, aes(x = time, y = resid, color = ROI)) +
+  geom_line() +
+  stat_peaks(
+    colour = "red",
+    span = span,
+    ignore_threshold = ignore_threshold
+  ) +
+  stat_peaks(
+    geom = "text",
+    colour = "red",
+    span = 15,
+    ignore_threshold = 0.2,
+    hjust = -0.5,
+    angle = 90
+  )
+
+map2(
+  df_res %>%
+    group_by(ROI) %>%
+    group_keys() %>%
+    pull(ROI),
+  df_res %>%
+    group_by(ROI) %>%
+    group_map(
+      ~ ggplot_build(
+        ggplot(.x, aes(x = time, y = resid)) +
+          geom_line() +
+          stat_peaks(
+            colour = "red",
+            span = span,
+            ignore_threshold = ignore_threshold
+          ) +
+          stat_peaks(
+            geom = "text",
+            colour = "red",
+            span = 15,
+            ignore_threshold = 0.2,
+            hjust = -0.5,
+            angle = 90
+          )
+      )$data[[2]]$xintercept
+    ),
+  ~ tibble(ROI = .x, Interval = diff(.y), Frequency = 1 / Interval)
+) %>%
+  bind_rows() %>%
+  group_by(ROI) %>%
+  summarize(mean = mean(Frequency), sd = sd(Frequency))
