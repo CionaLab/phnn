@@ -3,9 +3,9 @@
 
 cff-version: 1.2.0
 title: >-
-  A single oscillating proto-hypothalamic neuron imparts
-  noise to rhythmic taxis behavior in the primitive chordate
-  Ciona
+  Code for "A single oscillating proto-hypothalamic neuron
+  imparts noise to rhythmic taxis behavior in the primitive
+  chordate Ciona"
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
