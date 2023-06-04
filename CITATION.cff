@@ -19,11 +19,15 @@ authors:
     orcid: 'https://orcid.org/0009-0006-3590-4108'
   - given-names: Erin
     family-names: Newman-Smith
-    affiliation: 'University of California, Santa Barbara, Santa Barbara'
+    affiliation: >-
+      Neuroscience Research Institute, University of
+      California, Santa Barbara
     orcid: 'https://orcid.org/0000-0003-2752-7227'
   - given-names: Matthew J.
     family-names: Kourakis
-    affiliation: 'University of California, Santa Barbara, Santa Barbara'
+    affiliation: >-
+      Neuroscience Research Institute, University of
+      California, Santa Barbara
     orcid: 'https://orcid.org/0000-0002-1261-3811'
   - given-names: Yishen
     family-names: Miao
@@ -63,7 +67,9 @@ authors:
     family-names: Smith
     affiliation: >-
       Department of Molecular, Cellular and Developmental
-      Biology, University of California, Santa Barbara
+      Biology, University of California, Santa Barbara;
+      Neuroscience Research Institute, University of
+      California Santa Barbara
     orcid: 'https://orcid.org/0000-0002-6257-7695'
 identifiers:
   - type: doi
